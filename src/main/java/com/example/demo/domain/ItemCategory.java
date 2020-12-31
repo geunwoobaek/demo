@@ -1,10 +1,10 @@
 package com.example.demo.domain;
 
+import com.example.demo.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -12,20 +12,17 @@ import java.util.Objects;
 public class ItemCategory {
 
    @EmbeddedId
-   private ComplexKey id;
+   private CompositeKey id=new CompositeKey();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ItemCategory)) return false;
-        ItemCategory that = (ItemCategory) o;
-        return Objects.equals(getId(), that.getId());
-    }
+   @ManyToOne
+   @MapsId("categoryId")
+   @JoinColumn(name = "category_id")
+   private Category category;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
+    @ManyToOne
+    @MapsId("itemId")
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     private int orderAmount;
 

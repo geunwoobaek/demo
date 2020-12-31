@@ -16,6 +16,7 @@ public class Category {
     @GeneratedValue
     @Column(name = "category_id")
     private Long id;
+
     private String name;
 
     @OneToMany(mappedBy = "category")
